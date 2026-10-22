@@ -1,0 +1,59 @@
+Пароль для Level 2: PK8fYLZg2hnHSz83plBL1iEPKdD3QToB
+
+
+---
+
+##  Файл 4: `writeups/Level-2-to-3.md`
+
+```markdown
+# Bandit Level 2 → Level 3
+
+**Сложность:** ⭐⭐ (2/5)  
+**Тема:** Файлы с пробелами в имени  
+**Инструменты:** `cat`, кавычки, экранирование
+
+---
+
+## 📋 Описание задания
+
+> *Пароль для следующего уровня находится в файле, названном `spaces in this filename`, расположенном в домашней директории.*
+
+**Задача:** Прочитать файл, в имени которого есть пробелы.
+
+---
+
+## 🔍 Разведка
+
+После подключения как `bandit2` выполняем:
+
+```bash
+ls -la
+Вывод
+total 24
+-rw-r-----   1 bandit3 bandit2   33 Sep 26 21:54 --spaces in this filename--
+drwxr-xr-x   2 root    root    4096 Sep 26 21:54 .
+drwxr-xr-x 150 root    root    4096 Sep 26 21:58 ..
+-rw-r--r--   1 root    root     220 Feb 13  2026 .bash_logout
+-rw-r--r--   1 root    root    3851 Sep 26 21:38 .bashrc
+-rw-r--r--   1 root    root     807 Feb 13  2026 .profile
+Проблема: Файл называется --spaces in this filename-- (с пробелами и дефисами).
+⚔️ Решение
+Почему cat --spaces in this filename-- не работает?
+Linux воспринимает пробелы как разделители аргументов. Команда подумает, что ты хочешь прочитать 4 разных файла:
+--spaces
+in
+this
+filename--
+Решение 1: Кавычки (рекомендуется)
+Заключаем всё имя файла в кавычки:
+
+cat "./--spaces in this filename--"
+Или одинарные кавычки:
+cat '--spaces in this filename--'
+Решение 2: Экранирование пробелов
+Используем обратный слеш \ перед каждым пробелом:
+cat ./--spaces\ in\ this\ filename--
+Вывод
+7ZZ2LFrykP2zEyvBl4m3clcL7tGYJPME
+
+Пароль для Level 3: 7ZZ2LFrykP2zEyvBl4m3clcL7tGYJPME
