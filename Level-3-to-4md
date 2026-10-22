@@ -1,0 +1,53 @@
+Пароль для Level 3: 7ZZ2LFrykP2zEyvBl4m3clcL7tGYJPME
+
+
+---
+
+## 📄 Файл 5: `writeups/Level-3-to-4.md`
+
+```markdown
+# Bandit Level 3 → Level 4
+
+**Сложность:** ⭐⭐ (2/5)  
+**Тема:** Скрытые файлы и директории  
+**Инструменты:** `ls -la`, `cd`, `cat`
+
+---
+
+## 📋 Описание задания
+
+> *Пароль для следующего уровня находится в скрытом файле внутри директории `inhere`.*
+
+**Задача:** Найти и прочитать скрытый файл в поддиректории.
+
+---
+
+## 🔍 Разведка
+
+После подключения как `bandit3` выполняем:
+
+```bash
+ls -la
+Вывод:
+total 24
+drwxr-xr-x   3 root root 4096 Sep 26 21:54 .
+drwxr-xr-x 150 root root 4096 Sep 26 21:58 ..
+-rw-r--r--   1 root root  220 Feb 13  2026 .bash_logout
+-rw-r--r--   1 root root 3851 Sep 26 21:38 .bashrc
+-rw-r--r--   1 root root  807 Feb 13  2026 .profile
+drwxr-xr-x   2 root root 4096 Sep 26 21:54 inhere
+Наблюдение: Есть директория inhere.
+️ Решение
+Шаг 1: Исследуем содержимое inhere
+ls -la inhere
+Вывод:
+total 12
+drwxr-xr-x 2 root    root    4096 Sep 26 21:54 .
+drwxr-xr-x 3 root    root    4096 Sep 26 21:54 ..
+-rw-r----- 1 bandit4 bandit3   33 Sep 26 21:54 ...Hiding-From-You
+
+cat inhere/...Hiding-From-You
+
+xzTXq1rDJQVVAzdv5cHq1TQytTWufAMq
+
+Пароль для Level 4: xzTXq1rDJQVVAzdv5cHq1TQytTWufAMq
